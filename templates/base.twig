@@ -1,0 +1,99 @@
+{% block html_head_container %}
+
+{% include 'html-header.twig' %}
+	{% block head %}
+	{% endblock %}
+	</head>
+{% endblock %}
+
+	<body class="{{body_class}}" data-template="base.twig">
+		<a class="skip-link screen-reader-text" href="#content">{{ _e( 'Skip to content') }}</a>
+		<header class="header" >
+      
+			{% block header %}
+				<div class="wrapper">
+					<!--Nav-->
+          <nav id="header" class="fixed z-30 w-full top-8">
+            <div class="container flex flex-wrap items-center justify-between w-full py-2 mx-auto mt-0">
+              <div class="flex items-center pl-4">
+                <a class="text-2xl font-bold no-underline toggleColour hover:no-underline lg:text-4xl" href="{{site.url}}" rel="home">
+                  {{site.name}}
+                </a>
+              </div>
+              <div class="block pr-4 lg:hidden">
+                <button id="nav-toggle" class="flex items-center p-1 text-pink-800 transition duration-300 ease-in-out transform hover:text-gray-900 focus:outline-none focus:shadow-outline hover:scale-105">
+                  <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <title>Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                  </svg>
+                </button>
+              </div>
+              <div class="z-20 flex-grow hidden w-full p-4 mt-2 text-black bg-white lg:flex lg:items-center lg:w-auto lg:mt-0 lg:bg-transparent lg:p-0" id="nav-content">
+                  {% include "menu.twig" with {'items': menu.get_items} %}
+              </div>
+            </div>
+            <hr class="py-0 my-0 border-b border-gray-100 opacity-25" />
+          </nav>
+				</div>
+			{% endblock %}
+		</header>
+
+		<section id="content" role="main" class="container max-w-xl m-8 mx-auto content-wrapper ">
+			{% if title %}<h1>{{title}}</h1>{% endif %}
+			<div class="wrapper {{sidebar_class}}">
+				{% block content %}
+					Sorry, no content
+				{% endblock %}
+			</div>
+			{% if sidebar %}
+				<aside class="layout-sidebar">
+					{{sidebar}}
+				</aside>
+			{% endif %}
+		</section>
+
+		{% block footer %}
+			<footer id="footer">
+				{% include 'footer.twig' %}
+			</footer>
+			{{ function('wp_footer') }}
+    {% endblock %}
+    <script>
+      /*Toggle1 dropdown list*/
+      /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+
+      var navMenuDiv = document.getElementById("nav-content");
+      var navMenu = document.getElementById("nav-toggle");
+
+      document.onclick = check;
+      function check(e) {
+        var target = (e && e.target) || (event && event.srcElement);
+
+        //Nav Menu
+        if (!checkParent(target, navMenuDiv)) {
+          // click NOT on the menu
+          if (checkParent(target, navMenu)) {
+            // click on the link
+            if (navMenuDiv.classList.contains("hidden")) {
+              navMenuDiv.classList.remove("hidden");
+            } else {
+              navMenuDiv.classList.add("hidden");
+            }
+          } else {
+            // click both outside link and outside menu, hide menu
+            navMenuDiv.classList.add("hidden");
+          }
+        }
+      }
+      function checkParent(t, elm) {
+        while (t.parentNode) {
+          if (t == elm) {
+            return true;
+          }
+          t = t.parentNode;
+        }
+        return false;
+      }
+    </script>
+	</body>
+</html>

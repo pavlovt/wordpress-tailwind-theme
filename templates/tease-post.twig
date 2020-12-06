@@ -1,0 +1,16 @@
+{% extends "tease.twig" %}
+
+{% block content %}
+	<h2 class="text-2xl font-semibold font-title"><a href="{{post.link}}">{{post.title}}</a></h2>
+  <div class="flex">
+    <p class="w-2/3 font-body">{{ post.preview.read_more('[...]') }}</p>
+    <p class="w-1/3">
+      {% if post.thumbnail.src %}
+        <img src="{{post.thumbnail.src}}" />
+      {% endif %}
+    </p>
+    <script>
+    console.log('post', `{{post.preview}}`);
+    </script>
+  </div>
+{% endblock %}

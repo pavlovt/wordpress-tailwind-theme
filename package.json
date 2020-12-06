@@ -1,0 +1,17 @@
+{
+  "name": "tailwind_theme",
+  "version": "1.0.0",
+  "description": "Tailwind theme for Wordpress",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "postcss tailwind.css -o style.css"
+  },
+  "dependencies": {
+    "@fullhuman/postcss-purgecss": "^3.0.0",
+    "autoprefixer": "^10.0.4",
+    "postcss": "^8.1.14",
+    "postcss-cli": "^8.3.0",
+    "tailwindcss": "^2.0.1"
+  }
+}
